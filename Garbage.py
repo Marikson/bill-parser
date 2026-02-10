@@ -5,9 +5,9 @@ class Garbage:
         }
         
     def get_garbage_data(self, line):
-        parts = line.split("FtFizetési mód")
-        if len(parts) == 2:
-            val = parts[0]
+        parts = line.split()
+        if len(parts) == 4:
+            val = parts[-2] + " " + parts[-1]
             return val
 
 
@@ -16,10 +16,10 @@ class Garbage:
         if text.get('content'):
             lines = [line.strip() for line in text['content'].split('\n') if line.strip()]
             for line in lines:
-                if "Fizetési mód" in line:
+                if "FIZETENDŐ ÖSSZESEN" in line:
                     val = self.get_garbage_data(line)
                     if val:
                         self.garbage_data['Garbage'] = val
                     else:
                         print(f"Could not parse garbage data from line: {line}")
-            print("="*150) 
+            print("="*150)

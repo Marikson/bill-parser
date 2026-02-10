@@ -1,6 +1,9 @@
 import re
+from datetime import datetime
 
 class CommonCost:
+    service_fee_pattern = rf"{datetime.now().year}.*Rendelkezésre állási díj"
+
     common_cost_data = {
         "Common Cost": None,
         "int_Common Cost": None,
@@ -38,7 +41,7 @@ class CommonCost:
                     val = self.get_parsed_line_val(line)
                     if val:
                         self.common_cost_data['Common Cost'] = val
-                elif "Rendelkezésre állási díj" in line:
+                elif re.search(self.service_fee_pattern, line):
                     val = self.get_parsed_line_val(line)
                     if val:
                         self.common_cost_data['Service fee'] = val

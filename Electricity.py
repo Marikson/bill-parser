@@ -13,7 +13,7 @@ class Electricity:
             vals = [parts[2].replace('.',' '), parts[3].replace('.',' '), parts[-1]]
             return vals
         elif len(parts) == 4:
-            vals = [parts[-1].replace('.',' ')]
+            vals = [parts[-2].replace('.',' ')]
             return vals
         
     
@@ -27,7 +27,7 @@ class Electricity:
                     self.electricity_data['Previous standing'] = vals[0]
                     self.electricity_data['Current standing'] = vals[1]
                     self.electricity_data['Consumption'] = vals[2]
-                elif "Fizetendő összeg összesen" in line:
+                elif "Fizetendő összeg:" in line:
                     vals = self.get_electricity_data(line)
                     if vals:
                         self.electricity_data['Price'] = vals[0]

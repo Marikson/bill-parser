@@ -32,7 +32,7 @@ class Water:
         if text.get('content'):
             lines = [line.strip() for line in text['content'].split('\n') if line.strip()]
             for line in lines:
-                if "Fizetendő összeg" in line:
+                if "Fizetendő összeg:" in line:
                     val = self.get_water_data(line)
                     if val:
                         self.water_data['Cold water'] = val
