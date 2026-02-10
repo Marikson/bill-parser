@@ -7,7 +7,7 @@ class Electricity:
             "Price": 0,      
         }
 
-    def get_electricity_data(line):
+    def get_electricity_data(self,line):
         parts = line.split()
         if len(parts) == 8:
             vals = [parts[2].replace('.',' '), parts[3].replace('.',' '), parts[-1]]

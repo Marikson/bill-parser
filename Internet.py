@@ -5,14 +5,14 @@ class Internet:
         }
 
 
-    def get_internet_data(line):
+    def get_internet_data(self, line):
         parts = line.split()
         if len(parts) == 3:
             val = parts[-1].replace('.', ' ')
             return val
         
     
-    def process_internet(self,text, filename):
+    def process_internet(self, text, filename):
         print(f"Processing {filename}...")
         if text.get('content'):
             lines = [line.strip() for line in text['content'].split('\n') if line.strip()]

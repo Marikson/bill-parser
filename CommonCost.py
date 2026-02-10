@@ -1,11 +1,10 @@
 import re
 
 class CommonCost:
-    def __init__(self):
-        self.common_cost_data = {
-            "Common Cost": None,
-            "int_Common Cost": None,
-            "Service fee": 0,
+    common_cost_data = {
+        "Common Cost": None,
+        "int_Common Cost": None,
+        "Service fee": 0,
             "Hot Water": {
                 "Price/m3": None,
                 "Previous standing": None,
@@ -23,7 +22,7 @@ class CommonCost:
         }
 
     
-    def get_parsed_line_val(line):
+    def get_parsed_line_val(self, line):
         parts = re.split(r'\s{2,}', line)
         if len(parts) == 4:
             val = parts[2]
