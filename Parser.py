@@ -1,13 +1,14 @@
-import Garbage
-import CommonCost
-import Electricity
-import Water
-import Internet
 import sys
 import os
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from tika import parser
+
+from Garbage import Garbage
+from CommonCost import CommonCost
+from Electricity import Electricity
+from Water import Water
+from Internet import Internet
 
 
 def get_pdf_contents(folder_path):
