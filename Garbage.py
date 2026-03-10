@@ -9,6 +9,10 @@ class Garbage:
         if len(parts) == 4:
             val = parts[-2] + " " + parts[-1]
             return val
+        elif len(parts) == 5:
+            val = parts[0] + " " + parts[1]
+            return val
+
 
 
     def process_garbage(self, text, filename):
@@ -16,7 +20,13 @@ class Garbage:
         if text.get('content'):
             lines = [line.strip() for line in text['content'].split('\n') if line.strip()]
             for line in lines:
-                if "FIZETENDŐ ÖSSZESEN" in line or "Fizetendő" in line:
+                if "FIZETENDŐ ÖSSZESEN" in line:
+                    val = self.get_garbage_data(line)
+                    if val:
+                        self.garbage_data['Garbage'] = val
+                    else:
+                        print(f"Could not parse garbage data from line: {line}")
+                elif "FtFizetési mód: elektronikus" in line:
                     val = self.get_garbage_data(line)
                     if val:
                         self.garbage_data['Garbage'] = val
