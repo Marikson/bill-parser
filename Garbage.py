@@ -16,10 +16,12 @@ class Garbage:
         if text.get('content'):
             lines = [line.strip() for line in text['content'].split('\n') if line.strip()]
             for line in lines:
-                if "FIZETENDŐ ÖSSZESEN" in line:
+                if "FIZETENDŐ ÖSSZESEN" in line or "Fizetendő" in line:
                     val = self.get_garbage_data(line)
                     if val:
                         self.garbage_data['Garbage'] = val
                     else:
                         print(f"Could not parse garbage data from line: {line}")
+            if self.garbage_data['Garbage'] == 0:
+                print(f"Garbage data not found in {filename}")
             print("="*150)

@@ -33,4 +33,6 @@ class Electricity:
                         self.electricity_data['Price'] = vals[0]
                     else:
                         print(f"Could not parse electricity price from line: {line}")
+            if self.electricity_data['Price'] == 0:
+                print(f"Electricity price data not found in {filename}")
             print("="*150)

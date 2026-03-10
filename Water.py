@@ -24,6 +24,8 @@ class Water:
                     val = self.get_water_data(line)
                     if val:
                         self.sewer_data['Sewer'] = val
+            if self.sewer_data['Sewer'] == 0:
+                print(f"Sewer data not found in {filename}")
             print("="*150)
 
 
@@ -38,4 +40,6 @@ class Water:
                         self.water_data['Cold water'] = val
                     else:
                         print(f"Could not parse water data from line: {line}")
+            if self.water_data['Cold water'] == 0:
+                print(f"Cold water data not found in {filename}")
             print("="*150)

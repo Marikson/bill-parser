@@ -51,6 +51,14 @@ class CommonCost:
                     self.set_detailed_vals(line, column="Hot Water", unit="Price/m3")
                 elif "Fűtési egységár" in line:
                     self.set_detailed_vals(line, column="Heating", unit="Price/KWh")
+            if self.common_cost_data['Common Cost'] is None:
+                print(f"Common cost data not found in {filename}")
+            if self.common_cost_data['Service fee'] == 0:
+                print(f"Service fee data not found in {filename}")
+            if self.common_cost_data['Hot Water']['Price'] == 0:
+                print(f"Hot water price data not found in {filename}")
+            if self.common_cost_data['Heating']['Price'] == 0:
+                print(f"Heating price data not found in {filename}")
             print("="*150)
 
 

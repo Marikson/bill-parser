@@ -23,4 +23,6 @@ class Internet:
                         self.internet_data['Internet'] = val
                     else:
                         print(f"Could not parse internet data from line: {line}")
+            if self.internet_data['Internet'] == 0:
+                print(f"Internet data not found in {filename}")            
             print("="*150)
