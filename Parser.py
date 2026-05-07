@@ -48,6 +48,8 @@ class Parser:
                     f.write(f"  Price: {self.common_cost_instance.common_cost_data.get('Common Cost', '')}\n\n")
                     f.write("Service fee:\n")
                     f.write(f"  Price: {self.common_cost_instance.common_cost_data.get('Service fee', '')}\n\n")
+                    f.write("Reimbursement:\n")
+                    f.write(f"  Amount: {self.common_cost_instance.common_cost_data.get('Reimbursement', '')}\n\n")
                 # Hot water
                 f.write("Hot water:\n")
                 for key in ["Price/m3", "Previous standing", "Current standing", "Consumption", "Price"]:
@@ -80,6 +82,7 @@ class Parser:
                 all_costs = [
                     ("  Common cost", self.common_cost_instance.common_cost_data.get("Common Cost", 0)) if hasattr(self, 'common_cost_instance') else ("  Common cost", 0),
                     ("  Service fee", self.common_cost_instance.common_cost_data.get("Service fee", 0)) if hasattr(self, 'common_cost_instance') else ("  Service fee", 0),
+                    ("  Reimbursement", self.common_cost_instance.common_cost_data.get("Reimbursement", 0)) if hasattr(self, 'common_cost_instance') else ("  Reimbursement", 0),
                     ("  Hot water", self.common_cost_instance.common_cost_data["Hot Water"].get("Price", 0)) if hasattr(self, 'common_cost_instance') else ("  Hot water", 0),
                     ("  Heating", self.common_cost_instance.common_cost_data["Heating"].get("Price", 0)) if hasattr(self, 'common_cost_instance') else ("  Heating", 0),
                     ("  Electricity", self.electricity_instance.electricity_data.get("Price", 0)) if hasattr(self, 'electricity_instance') else ("  Electricity", 0),
@@ -94,6 +97,8 @@ class Parser:
                         int_val = int(str(value).replace(" ", "")) if value else 0
                     except ValueError:
                         int_val = 0
+                    if label.strip() == "Reimbursement":
+                        int_val = -int_val  # Subtract reimbursement from total
                     total += int_val
                     f.write(f"{label}: {value}\n")
                 # Write the total in bold using Markdown syntax

@@ -8,6 +8,7 @@ class CommonCost:
         "Common Cost": None,
         "int_Common Cost": None,
         "Service fee": 0,
+        "Reimbursement": 0,
             "Hot Water": {
                 "Price/m3": None,
                 "Previous standing": None,
@@ -25,10 +26,10 @@ class CommonCost:
         }
 
     
-    def get_parsed_line_val(self, line):
+    def get_parsed_line_val(self, line, member_index=2):
         parts = re.split(r'\s{2,}', line)
         if len(parts) == 4:
-            val = parts[2]
+            val = parts[member_index]
             return val
 
    
@@ -38,11 +39,11 @@ class CommonCost:
             lines = [line.strip() for line in text['content'].split('\n') if line.strip()]
             for line in lines:
                 if "Közös költség" in line:
-                    val = self.get_parsed_line_val(line)
+                    val = self.get_parsed_line_val(line, 2)
                     if val:
                         self.common_cost_data['Common Cost'] = val
                 elif re.search(self.service_fee_pattern, line):
-                    val = self.get_parsed_line_val(line)
+                    val = self.get_parsed_line_val(line, 2)
                     if val:
                         self.common_cost_data['Service fee'] = val
                     else:
@@ -51,6 +52,12 @@ class CommonCost:
                     self.set_detailed_vals(line, column="Hot Water", unit="Price/m3")
                 elif "Fűtési egységár" in line:
                     self.set_detailed_vals(line, column="Heating", unit="Price/KWh")
+                elif "Rezsicsökkentés" in line:
+                    val = self.get_parsed_line_val(line, 3)
+                    if val:
+                        self.common_cost_data['Reimbursement'] = val
+                    else:
+                        print(f"Could not parse reimbursement from line: {line}")
             if self.common_cost_data['Common Cost'] is None:
                 print(f"Common cost data not found in {filename}")
             if self.common_cost_data['Service fee'] == 0:
