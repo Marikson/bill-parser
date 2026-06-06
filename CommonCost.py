@@ -3,11 +3,13 @@ from datetime import datetime
 
 class CommonCost:
     service_fee_pattern = rf"{datetime.now().year}.*Rendelkezésre állási díj"
+    renovation_fee_pattern = rf"{datetime.now().year}.*Felújítási alap"
 
     common_cost_data = {
         "Common Cost": None,
         "int_Common Cost": None,
         "Service fee": 0,
+        "Renovation fee": 0,
         "Reimbursement": 0,
             "Hot Water": {
                 "Price/m3": None,
@@ -48,6 +50,12 @@ class CommonCost:
                         self.common_cost_data['Service fee'] = val
                     else:
                         print(f"Could not parse service fee from line: {line}")
+                elif re.search(self.renovation_fee_pattern, line):
+                    val = self.get_parsed_line_val(line, 2)
+                    if val:
+                        self.common_cost_data['Renovation fee'] = val
+                    else:
+                        print(f"Could not parse renovation fee from line: {line}")
                 elif "Melegvíz egységár" in line:
                     self.set_detailed_vals(line, column="Hot Water", unit="Price/m3")
                 elif "Fűtési egységár" in line:
@@ -62,6 +70,8 @@ class CommonCost:
                 print(f"Common cost data not found in {filename}")
             if self.common_cost_data['Service fee'] == 0:
                 print(f"Service fee data not found in {filename}")
+            if self.common_cost_data['Renovation fee'] == 0:
+                print(f"Renovation fee data not found in {filename}")
             if self.common_cost_data['Hot Water']['Price'] == 0:
                 print(f"Hot water price data not found in {filename}")
             if self.common_cost_data['Heating']['Price'] == 0:

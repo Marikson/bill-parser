@@ -50,6 +50,8 @@ class Parser:
                     f.write(f"  Price: {self.common_cost_instance.common_cost_data.get('Service fee', '')}\n\n")
                     f.write("Reimbursement:\n")
                     f.write(f"  Amount: {self.common_cost_instance.common_cost_data.get('Reimbursement', '')}\n\n")
+                    f.write("Renovation fee:\n")
+                    f.write(f"  Amount: {self.common_cost_instance.common_cost_data.get('Renovation fee', '')}\n\n")
                 # Hot water
                 f.write("Hot water:\n")
                 for key in ["Price/m3", "Previous standing", "Current standing", "Consumption", "Price"]:
@@ -83,6 +85,7 @@ class Parser:
                     ("  Common cost", self.common_cost_instance.common_cost_data.get("Common Cost", 0)) if hasattr(self, 'common_cost_instance') else ("  Common cost", 0),
                     ("  Service fee", self.common_cost_instance.common_cost_data.get("Service fee", 0)) if hasattr(self, 'common_cost_instance') else ("  Service fee", 0),
                     ("  Reimbursement", self.common_cost_instance.common_cost_data.get("Reimbursement", 0)) if hasattr(self, 'common_cost_instance') else ("  Reimbursement", 0),
+                    ("  Renovation fee", self.common_cost_instance.common_cost_data.get("Renovation fee", 0)) if hasattr(self, 'common_cost_instance') else ("  Renovation fee", 0),
                     ("  Hot water", self.common_cost_instance.common_cost_data["Hot Water"].get("Price", 0)) if hasattr(self, 'common_cost_instance') else ("  Hot water", 0),
                     ("  Heating", self.common_cost_instance.common_cost_data["Heating"].get("Price", 0)) if hasattr(self, 'common_cost_instance') else ("  Heating", 0),
                     ("  Electricity", self.electricity_instance.electricity_data.get("Price", 0)) if hasattr(self, 'electricity_instance') else ("  Electricity", 0),
