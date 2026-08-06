@@ -48,6 +48,8 @@ class Parser:
                     f.write(f"  Price: {self.common_cost_instance.common_cost_data.get('Common Cost', '')}\n\n")
                     f.write("Service fee:\n")
                     f.write(f"  Price: {self.common_cost_instance.common_cost_data.get('Service fee', '')}\n\n")
+                    f.write("Garbage fee:\n")
+                    f.write(f"  Price: {self.common_cost_instance.common_cost_data.get('Garbage fee', '')}\n\n")
                     f.write("Reimbursement:\n")
                     f.write(f"  Amount: {self.common_cost_instance.common_cost_data.get('Reimbursement', '')}\n\n")
                     f.write("Renovation fee:\n")
@@ -89,7 +91,7 @@ class Parser:
                     ("  Hot water", self.common_cost_instance.common_cost_data["Hot Water"].get("Price", 0)) if hasattr(self, 'common_cost_instance') else ("  Hot water", 0),
                     ("  Heating", self.common_cost_instance.common_cost_data["Heating"].get("Price", 0)) if hasattr(self, 'common_cost_instance') else ("  Heating", 0),
                     ("  Electricity", self.electricity_instance.electricity_data.get("Price", 0)) if hasattr(self, 'electricity_instance') else ("  Electricity", 0),
-                    ("  Garbage", self.garbage_instance.garbage_data.get("Garbage", 0)) if hasattr(self, 'garbage_instance') else ("  Garbage", 0),
+                    ("  Garbage", self.common_cost_instance.common_cost_data.get("Garbage fee", 0)) if hasattr(self, 'common_cost_instance') else ("  Garbage fee", 0),
                     ("  Internet", self.internet_instance.internet_data.get("Internet", 0)) if hasattr(self, 'internet_instance') else ("  Internet", 0),
                     ("  Cold water", self.cold_water_instance.water_data.get("Cold water", 0)) if hasattr(self, 'cold_water_instance') else ("  Cold water", 0),
                     ("  Sewer", self.sewer_instance.sewer_data.get("Sewer", 0)) if hasattr(self, 'sewer_instance') else ("  Sewer", 0),
